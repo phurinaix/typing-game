@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TypingGame</title>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <!-- minify -->
+  <link href="https://unpkg.com/nes.css@2.2.0/css/nes.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <dialog class="nes-dialog" id="dialog-default">
+      <form method="dialog">
+        <p class="title" id="alert_message"></p>
+        {{!-- <p>Alert: Success</p> --}}
+          <button class="nes-btn is-primary w-100">OK</button>
+      </form>
+    </dialog>
+    <form action="api/create" method="POST" name="myForm" onsubmit="return validate()">
+      <div class="col-md-7 mx-auto my-5">
+        <h3>Typing Game</h3>
+        <br/>
+        <div class="form-group">
+          {{!-- <label for="article">Article</label>
+          <textarea name="article" id="article" cols="30" rows="15" class="form-control"></textarea> --}}
+          <div class="nes-container is-rounded bg-white p-1 mb-4">
+            <div class="lists">
+              <ul class="nes-list is-circle">
+                <li><small>Article must contain only Eng letters, numbers, single quote, double quote and dot symbol.</small></li>
+                <li><small>Length of article must be greater than 10 and less than or equal to 100.</small></li>
+              </ul>
+            </div>
+          </div>
+          <label for="article" id="article_limit">Article (0/100)</label>
+          <textarea name="article" id="article" cols="30" rows="10" class="nes-textarea" maxlength="100" onkeyup="articleHandle()"></textarea>
+        </div>
+        <input type="submit" value="Create" name="create" class="nes-btn is-primary">
+        <a href="/" class="nes-btn is-error">Go to home</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script>
+    var alertMsg = document.getElementById("alert_message");
+    var dialog = document.getElementById('dialog-default');
+    var articleLimit = document.getElementById("article_limit");
+    function validate() {
+      var articleValue = document.forms["myForm"]["article"].value;
+      if (articleValue === "") {
+        alertMsg.innerHTML = "Article must be filled out";
+        dialog.showModal();
+        return false;
+      }
+      if (articleValue.length < 10 || articleValue.length > 100) {
+        alertMsg.innerHTML = "article length must be > 10 and <= 100.";
+        dialog.showModal();
+        return false;
+      }
+      if(!(/^[A-Za-z0-9\/\s\."'-]+$/.test(articleValue))) {
+        alertMsg.innerHTML = "Article can not include special characters";
+        dialog.showModal();
+        return false;
+      }
+      return true;
+    }
+
+    function articleHandle() {
+      var articleValue = document.getElementById("article");
+      var count = articleValue.value.length;
+      console.log(articleValue.value);
+      articleLimit.innerHTML = `Article (${count}/100)`;
+    }
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var status = urlParams.get('status');
+    if (status === "success") {
+      alertMsg.innerHTML = "Success";
+      dialog.showModal();
+    } else if (status === "error") {
+      alertMsg.innerHTML = "Failed to created article";
+      dialog.showModal();
+    }
+    window.history.replaceState({}, document.title, "/create");
+  </script>
+</body>
+</html>

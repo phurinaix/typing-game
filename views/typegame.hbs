@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TypingGame</title>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <!-- minify -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://unpkg.com/nes.css@2.2.0/css/nes.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <dialog class="nes-dialog" id="dialog_guide">
+      <form method="dialog">
+        <p>WPM: Words Per Minute</p>
+        <menu class="dialog-menu">
+          <button class="nes-btn">Cancel</button>
+          <button class="nes-btn is-primary">OK</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <div class="typegame-section text-center p-4">
+      <div class="box_container">
+        <i class="nes-octocat animate" id="box"></i>
+        <i class="nes-icon trophy is-large" id="prize"></i>
+      </div>
+      <div id="great_message" class="text-center my-5">
+        <a href="#" class="nes-badge is-icon">
+          <span class="is-warning"><i class="nes-icon star is-small"></i></span>
+          <span class="is-dark">Great</span>
+        </a>
+      </div>
+      
+      <div class="article_container text-center">
+        <p class="nes-balloon from-left nes-pointer" id="article"></p>
+      </div>
+      <div class="nes-field" id="user_input_container">
+        <label for="user_input">Your text</label>
+        <input type="text" id="user_input" class="nes-input" autofocus="on">
+      </div>
+
+      {{!-- WPM --}}
+      <div class="result">
+        {{!-- <button type="button" class="nes-btn is-disabled">Disabled</button> --}}
+        <h1 id="wpm" class="nes-btn is-warning">0 wpm</h1>
+      </div>
+      <br/><br/><br/>
+      <a href="/" class="nes-btn is-error">Go to home</a>
+      <a href="/typegame" class="nes-btn is-primary">New game</a>
+      <button type="button" class="nes-btn is-success" id="guid_btn">Guide</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
